@@ -1,6 +1,6 @@
 package com.example.battleship.model;
 
-// Player.java - Base player class
+//Base player class
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,0 +1,151 @@
+/* Main application styles */
+.root {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+
+/* Menu bar styling */
+.menu-bar {
+    -fx-background-color: #1e3c72;
+}
+
+.menu {
+    -fx-text-fill: white;
+}
+
+.menu-item {
+    -fx-text-fill: black;
+}
+
+.menu-item:hover {
+    -fx-background-color: #3a506b;
+    -fx-text-fill: white;
+}
+
+/* Button styling */
+.button {
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-padding: 8 15 8 15;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);
+}
+
+.button:pressed {
+    -fx-translate-y: 1px;
+}
+
+/* Start button */
+#startButton {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #388E3C);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+#startButton:hover {
+    -fx-background-color: linear-gradient(to bottom, #66BB6A, #43A047);
+}
+
+#startButton:disabled {
+    -fx-background-color: #A5D6A7;
+    -fx-text-fill: #E8F5E9;
+}
+
+/* Rotate button */
+#rotateButton {
+    -fx-background-color: linear-gradient(to bottom, #FF9800, #F57C00);
+    -fx-text-fill: white;
+}
+
+#rotateButton:hover {
+    -fx-background-color: linear-gradient(to bottom, #FFB74D, #FF9800);
+}
+
+#rotateButton:disabled {
+    -fx-background-color: #FFCC80;
+    -fx-text-fill: #FFF3E0;
+}
+
+/* Show computer board button */
+#showComputerBoardButton {
+    -fx-background-color: linear-gradient(to bottom, #2196F3, #1976D2);
+    -fx-text-fill: white;
+}
+
+#showComputerBoardButton:hover {
+    -fx-background-color: linear-gradient(to bottom, #42A5F5, #1E88E5);
+}
+
+#showComputerBoardButton:disabled {
+    -fx-background-color: #90CAF9;
+    -fx-text-fill: #E3F2FD;
+}
+
+/* Label styling */
+.label {
+    -fx-text-fill: white;
+}
+
+#statusLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+#currentShipLabel {
+    -fx-font-size: 12px;
+    -fx-text-fill: #FFE082;
+}
+
+/* Scroll pane styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Separator styling */
+.separator {
+    -fx-background-color: #5bc0be;
+    -fx-padding: 0 0 5 0;
+}
+
+/* Control panel background */
+#controlPanel {
+    -fx-background-color: linear-gradient(to bottom, #1c2541, #0f1a30);
+    -fx-background-radius: 10;
+    -fx-border-color: #5bc0be;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+}
+
+/* Game area */
+#gameArea {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-radius: 15;
+}
+
+/* Ship container */
+#shipContainer {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-radius: 5;
+    -fx-border-color: #5bc0be;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
+
+/* Board containers */
+StackPane {
+    -fx-background-color: #0a2463;
+    -fx-background-radius: 10;
+    -fx-border-color: #1e3c72;
+    -fx-border-width: 3;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 5);
+}

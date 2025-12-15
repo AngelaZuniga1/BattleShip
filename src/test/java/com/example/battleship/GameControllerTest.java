@@ -1,7 +1,5 @@
 package com.example.battleship;
 
-// GameControllerTest.java - Unit tests for GameController
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,12 +37,33 @@ public class GameControllerTest {
         Position position = new Position(0, 0);
 
         try {
+            // First shot should work
             gameController.playerFire(position);
+
+            // Second shot should throw exception
             assertThrows(InvalidShotException.class, () -> {
                 gameController.playerFire(position);
-            });
+            }, "Should not allow shooting same position twice");
+
         } catch (InvalidShotException e) {
-            fail("First shot should be valid");
+            fail("First shot should be valid: " + e.getMessage());
         }
+    }
+
+    @Test
+    public void testInvalidShotOutOfBounds() {
+        Position invalidPosition = new Position(10, 10); // Out of bounds
+
+        assertThrows(InvalidShotException.class, () -> {
+            gameController.playerFire(invalidPosition);
+        }, "Should not allow shooting out of bounds");
+    }
+
+    @Test
+    public void testShipPlacementController() {
+        assertNotNull(gameController.getShipPlacementController());
+        assertFalse(gameController.getShipPlacementController().allShipsPlaced());
+        assertEquals(0, gameController.getShipPlacementController().getCurrentShipIndex());
+        assertEquals(10, gameController.getShipPlacementController().getTotalShips());
     }
 }

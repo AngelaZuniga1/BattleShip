@@ -1,6 +1,6 @@
 package com.example.battleship.util;
 
-// GameSaver.java - Handles game saving
+//Handles game saving
 
 import com.example.battleship.model.GameState;
 import com.example.battleship.controller.FileManager;

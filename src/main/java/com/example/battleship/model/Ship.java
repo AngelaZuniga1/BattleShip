@@ -1,6 +1,6 @@
 package com.example.battleship.model;
 
-// Ship.java - Represents a ship in the game
+//Represents a ship in the game
 
 import java.io.Serializable;
 import java.util.List;

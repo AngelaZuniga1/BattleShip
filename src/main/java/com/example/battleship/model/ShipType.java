@@ -1,6 +1,6 @@
 package com.example.battleship.model;
 
-// ShipType.java - Enumeration of ship types
+//Enumeration of ship types
 
 /**
  * Enum representing different ship types with their sizes.

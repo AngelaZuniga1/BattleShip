@@ -1,12 +1,10 @@
 package com.example.battleship;
 
-// BoardTest.java - Unit tests for Board class
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import com.example.battleship.model.*;
-import com.example.battleship.exceptions.InvalidPlacementException;
+import com.example.battleship.controller.GameController;
 
 /**
  * Unit tests for Board class.
@@ -19,57 +17,78 @@ public class BoardTest {
 
     @BeforeEach
     public void setUp() {
-        board = new Board(10, 10);
+        board = new Board();
         ship = new Ship(ShipType.DESTROYER);
     }
 
     @Test
     public void testPlaceShipValid() {
-        try {
-            board.placeShip(ship, new Position(0, 0), true);
-            assertTrue(ship.isPlaced());
-            assertEquals(2, ship.getPositions().size());
-        } catch (InvalidPlacementException e) {
-            fail("Should not throw exception for valid placement");
-        }
+        boolean placed = board.placeShip(ship, new Position(0, 0), true);
+        assertTrue(placed, "Ship should be placed successfully");
+        assertTrue(ship.isPlaced(), "Ship should be marked as placed");
+        assertEquals(2, ship.getPositions().size(), "Destroyer should occupy 2 positions");
     }
 
     @Test
     public void testPlaceShipOutOfBounds() {
-        assertThrows(InvalidPlacementException.class, () -> {
-            board.placeShip(ship, new Position(9, 9), true);
-        });
+        // Try to place ship that would go off board
+        boolean placed = board.placeShip(ship, new Position(9, 9), true);
+        assertFalse(placed, "Ship should not be placed out of bounds");
+    }
+
+    @Test
+    public void testPlaceShipOverlap() {
+        // Place first ship
+        board.placeShip(ship, new Position(0, 0), true);
+
+        // Try to place another ship in same position
+        Ship ship2 = new Ship(ShipType.FRIGATE);
+        boolean placed = board.placeShip(ship2, new Position(0, 0), true);
+        assertFalse(placed, "Ships should not overlap");
     }
 
     @Test
     public void testReceiveShotHit() {
-        try {
-            board.placeShip(ship, new Position(0, 0), true);
-            Board.ShotResult result = board.receiveShot(new Position(0, 0));
-            assertEquals(Board.ShotResult.HIT, result);
-        } catch (InvalidPlacementException e) {
-            fail("Setup failed");
-        }
+        board.placeShip(ship, new Position(0, 0), true);
+        Board.ShotResult result = board.receiveShot(new Position(0, 0));
+        assertEquals(Board.ShotResult.HIT, result, "Shot should hit the ship");
     }
 
     @Test
     public void testReceiveShotMiss() {
         Board.ShotResult result = board.receiveShot(new Position(0, 0));
-        assertEquals(Board.ShotResult.MISS, result);
+        assertEquals(Board.ShotResult.MISS, result, "Shot should miss when no ship");
+    }
+
+    @Test
+    public void testReceiveShotAlreadyShot() {
+        board.receiveShot(new Position(0, 0));
+        Board.ShotResult result = board.receiveShot(new Position(0, 0));
+        assertEquals(Board.ShotResult.ALREADY_SHOT, result, "Should not allow shooting same cell twice");
+    }
+
+    @Test
+    public void testShipSinking() {
+        board.placeShip(ship, new Position(0, 0), true);
+
+        // Hit first segment
+        board.receiveShot(new Position(0, 0));
+        assertFalse(ship.isSunk(), "Ship should not be sunk after one hit");
+
+        // Hit second segment
+        Board.ShotResult result = board.receiveShot(new Position(0, 1));
+        assertEquals(Board.ShotResult.SUNK, result, "Ship should be sunk after all hits");
+        assertTrue(ship.isSunk(), "Ship should be marked as sunk");
     }
 
     @Test
     public void testAllShipsSunk() {
-        try {
-            board.placeShip(ship, new Position(0, 0), true);
+        board.placeShip(ship, new Position(0, 0), true);
 
-            // Hit both segments
-            board.receiveShot(new Position(0, 0));
-            board.receiveShot(new Position(0, 1));
+        // Sink the ship
+        board.receiveShot(new Position(0, 0));
+        board.receiveShot(new Position(0, 1));
 
-            assertTrue(ship.isSunk());
-        } catch (InvalidPlacementException e) {
-            fail("Setup failed");
-        }
+        assertTrue(board.allShipsSunk(), "All ships should be sunk");
     }
 }

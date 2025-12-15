@@ -1,6 +1,6 @@
 package com.example.battleship.patterns;
 
-// GameCommand.java - Concrete command implementation
+//Concrete command implementation
 
 import com.example.battleship.model.*;
 

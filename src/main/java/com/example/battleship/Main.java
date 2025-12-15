@@ -20,40 +20,50 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Initialize game state
+            //Initialize game state
             GameState gameState = new GameState();
 
-            // Initialize controller
+            //Initialize controller
             gameController = new GameController(gameState);
 
-            // Initialize view
+            //Initialize view
             gameUI = new GameUI(gameController);
 
-            // Create scene
-            Scene scene = new Scene(gameUI.createMainLayout(), 1000, 600);
+            //Get the main layout
+            Scene scene = new Scene(gameUI.getMainLayout(), 1300, 630);
 
-            // Set up primary stage
-            primaryStage.setTitle("Battleship - Naval Warfare");
+            //Set up primary stage
+            primaryStage.setTitle("Naval Battle Game");
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(1000);
-            primaryStage.setMinHeight(700);
+            primaryStage.setMinWidth(1100);
+            primaryStage.setMinHeight(100);
             primaryStage.show();
 
-            // Load saved game if exists (HU-5)
+            //This load saved game if exists
             gameController.loadGame();
 
         } catch (Exception e) {
-            System.err.println("Error starting application: " + e.getMessage());
             e.printStackTrace();
+            showErrorDialog("Application Error", e.getMessage());
         }
     }
 
     @Override
     public void stop() {
-        // Save game on exit (HU-5)
+        //This save game when application closes
         if (gameController != null) {
             gameController.saveGame();
         }
+    }
+
+    private void showErrorDialog(String title, String message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                javafx.scene.control.Alert.AlertType.ERROR
+        );
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public static void main(String[] args) {

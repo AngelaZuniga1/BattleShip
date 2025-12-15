@@ -1,6 +1,6 @@
 package com.example.battleship.model;
 
-// GameState.java - Main game state management
+//Main game state management
 
 import java.io.Serializable;
 import java.util.ArrayList;

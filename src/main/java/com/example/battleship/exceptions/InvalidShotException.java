@@ -1,6 +1,6 @@
 package com.example.battleship.exceptions;
 
-// InvalidShotException.java - Invalid shot exception
+//Invalid shot exception
 /**
  * Checked exception for invalid shots.
  * HU-2: Used when player attempts invalid shot

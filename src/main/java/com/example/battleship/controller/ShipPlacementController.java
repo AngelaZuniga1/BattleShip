@@ -1,7 +1,5 @@
 package com.example.battleship.controller;
 
-// ShipPlacementController.java - Handles ship placement logic
-
 import com.example.battleship.model.*;
 import com.example.battleship.exceptions.InvalidPlacementException;
 import java.util.List;
@@ -22,6 +20,12 @@ public class ShipPlacementController {
         this.shipsToPlace = gameState.getPlayer().getShips();
         this.currentShipIndex = 0;
         this.isHorizontal = true;
+
+        //Reset placement status
+        for (Ship ship : shipsToPlace) {
+            ship.setPlaced(false);
+            ship.setPositions(null);
+        }
     }
 
     /**
@@ -34,7 +38,12 @@ public class ShipPlacementController {
 
         Ship currentShip = shipsToPlace.get(currentShipIndex);
 
-        // Call placeShip which should return boolean
+        if (currentShip.isPlaced()) {
+            currentShipIndex++;
+            return placeCurrentShip(position);
+        }
+
+        // Try to place ship
         boolean placed = gameState.getPlayerBoard().placeShip(currentShip, position, isHorizontal);
 
         if (placed) {
@@ -52,7 +61,12 @@ public class ShipPlacementController {
     }
 
     public boolean allShipsPlaced() {
-        return currentShipIndex >= shipsToPlace.size();
+        for (Ship ship : shipsToPlace) {
+            if (!ship.isPlaced()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void toggleOrientation() {
@@ -60,6 +74,24 @@ public class ShipPlacementController {
     }
 
     public boolean isHorizontal() { return isHorizontal; }
-    public int getCurrentShipIndex() { return currentShipIndex; }
+    public int getCurrentShipIndex() {
+        int placed = 0;
+        for (Ship ship : shipsToPlace) {
+            if (ship.isPlaced()) placed++;
+        }
+        return placed;
+    }
     public int getTotalShips() { return shipsToPlace.size(); }
+
+    /**
+     * Reset placement state
+     */
+    public void reset() {
+        currentShipIndex = 0;
+        isHorizontal = true;
+        for (Ship ship : shipsToPlace) {
+            ship.setPlaced(false);
+            ship.setPositions(null);
+        }
+    }
 }

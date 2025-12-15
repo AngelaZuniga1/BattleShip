@@ -1,6 +1,6 @@
 package com.example.battleship.model;
 
-// Position.java - Represents board coordinates
+//Represents board coordinates
 
 import java.io.Serializable;
 

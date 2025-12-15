@@ -1,6 +1,6 @@
 package com.example.battleship.util;
 
-// GameLoader.java - Handles game loading
+//Handles game loading
 
 import com.example.battleship.model.GameState;
 import com.example.battleship.controller.FileManager;

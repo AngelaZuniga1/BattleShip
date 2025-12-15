@@ -1,6 +1,6 @@
 package com.example.battleship.exceptions;
 
-// FileOperationException.java - File operation exception
+//File operation exception
 
 /**
  * Unchecked exception for file operations.

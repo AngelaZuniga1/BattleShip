@@ -1,6 +1,6 @@
 package com.example.battleship.util;
 
-// Constants.java - Game constants
+//Game constants
 /**
  * Utility class containing game constants.
  */

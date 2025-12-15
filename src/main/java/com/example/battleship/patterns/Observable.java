@@ -1,6 +1,6 @@
 package com.example.battleship.patterns;
 
-// Observable.java - Observable interface
+//Observable interface
 
 /**
  * Observable interface for the Observer pattern.

@@ -1,6 +1,6 @@
 package com.example.battleship.exceptions;
 
-// InvalidPlacementException.java - Ship placement exception
+//Ship placement exception
 
 /**
  * Checked exception for invalid ship placement.

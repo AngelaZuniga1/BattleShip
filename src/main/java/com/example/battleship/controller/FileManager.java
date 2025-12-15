@@ -1,6 +1,6 @@
 package com.example.battleship.controller;
 
-// FileManager.java - Handles file operations
+// FileManager - Handles file operations
 
 import java.io.*;
 import java.util.List;

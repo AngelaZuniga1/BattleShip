@@ -1,16 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.battleship.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.battleship.controller.MainController"
+            prefWidth="1200" prefHeight="800"
+            style="-fx-background-color: linear-gradient(to bottom, #0a2463, #1e3c72);">
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+    <!-- Top Menu Bar -->
+    <top>
+        <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+            <Menu text="File" style="-fx-text-fill: white;">
+                <MenuItem text="New Game" onAction="#handleNewGame"/>
+                <MenuItem text="Save Game" onAction="#handleSaveGame"/>
+                <MenuItem text="Load Game" onAction="#handleLoadGame"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Exit" onAction="#handleExit"/>
+            </Menu>
+            <Menu text="View" style="-fx-text-fill: white;">
+                <CheckMenuItem text="Show Computer Board" onAction="#handleShowComputerBoard"/>
+            </Menu>
+            <Menu text="Help" style="-fx-text-fill: white;">
+                <MenuItem text="Game Rules" onAction="#handleShowRules"/>
+                <MenuItem text="About" onAction="#handleAbout"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <!-- Center Game Area -->
+    <center>
+        <HBox fx:id="gameArea" spacing="40" alignment="CENTER"
+              BorderPane.alignment="CENTER" style="-fx-padding: 20;">
+            <!-- Player Board Container -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="YOUR FLEET"
+                       style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                <StackPane fx:id="playerBoardContainer"
+                           prefWidth="450" prefHeight="450"/>
+            </VBox>
+
+            <!-- Computer Board Container -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="ENEMY WATERS"
+                       style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                <StackPane fx:id="computerBoardContainer"
+                           prefWidth="450" prefHeight="450"/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- Right Control Panel -->
+    <right>
+        <VBox fx:id="controlPanel" spacing="15" alignment="TOP_CENTER"
+              prefWidth="250" style="-fx-background-color: #1c2541; -fx-padding: 20;">
+
+            <Label text="GAME CONTROLS"
+                   style="-fx-text-fill: #5bc0be; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+            <Separator/>
+
+            <!-- Current Ship Info -->
+            <Label fx:id="currentShipLabel" text="Select a ship to place"
+                   style="-fx-text-fill: white; -fx-font-size: 12px;"
+                   wrapText="true"/>
+
+            <Separator/>
+
+            <!-- Control Buttons -->
+            <Button fx:id="rotateButton" text="ROTATE SHIP"
+                    style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-size: 12px;"
+                    onAction="#handleRotateShip" prefWidth="200"/>
+
+            <Button fx:id="startButton" text="START GAME"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"
+                    onAction="#handleStartGame" prefWidth="200"/>
+
+            <Separator/>
+
+            <Button fx:id="showComputerBoardButton" text="SHOW COMPUTER BOARD"
+                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 12px;"
+                    onAction="#handleToggleComputerBoard" prefWidth="200"/>
+
+            <Separator/>
+
+            <!-- Ships to Place -->
+            <Label text="SHIPS TO PLACE:"
+                   style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+
+            <ScrollPane fx:id="shipScrollPane" fitToWidth="true"
+                        style="-fx-background-color: transparent;" prefHeight="300">
+                <VBox fx:id="shipContainer" spacing="8" alignment="TOP_CENTER"
+                      style="-fx-padding: 10; -fx-background-color: rgba(0,0,0,0.2);"/>
+            </ScrollPane>
+        </VBox>
+    </right>
+
+    <!-- Bottom Status Bar -->
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #3a506b; -fx-padding: 10;">
+            <Label fx:id="statusLabel" text="Welcome to Battleship! Place your ships on the board."
+                   style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"
+                   wrapText="true" maxWidth="1000"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

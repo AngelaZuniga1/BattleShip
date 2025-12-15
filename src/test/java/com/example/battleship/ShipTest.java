@@ -1,7 +1,5 @@
 package com.example.battleship;
 
-// ShipTest.java - Unit tests for Ship class
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,7 +35,31 @@ public class ShipTest {
         assertFalse(ship.isSunk());
 
         ship.hit();
+        assertEquals(2, ship.getHitCount());
+        assertFalse(ship.isSunk());
+
         ship.hit();
+        assertEquals(3, ship.getHitCount());
         assertTrue(ship.isSunk());
+    }
+
+    @Test
+    public void testShipPlacement() {
+        assertFalse(ship.isPlaced());
+        ship.setPlaced(true);
+        assertTrue(ship.isPlaced());
+    }
+
+    @Test
+    public void testDifferentShipTypes() {
+        Ship carrier = new Ship(ShipType.AIRCRAFT_CARRIER);
+        assertEquals(4, carrier.getSize());
+        assertEquals("AIRCRAFT CARRIER", carrier.getName());
+
+        Ship destroyer = new Ship(ShipType.DESTROYER);
+        assertEquals(2, destroyer.getSize());
+
+        Ship frigate = new Ship(ShipType.FRIGATE);
+        assertEquals(1, frigate.getSize());
     }
 }

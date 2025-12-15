@@ -1,6 +1,6 @@
 package com.example.battleship.model;
 
-// Cell.java - Represents a single cell on the board
+//Represents a single cell on the board
 
 import java.io.Serializable;
 
@@ -25,7 +25,7 @@ public class Cell implements Serializable {
         this.ship = null;
     }
 
-    // Getters and setters
+    //Getters and setters
     public Position getPosition() { return position; }
     public boolean hasShip() { return hasShip; }
     public void setHasShip(boolean hasShip) { this.hasShip = hasShip; }

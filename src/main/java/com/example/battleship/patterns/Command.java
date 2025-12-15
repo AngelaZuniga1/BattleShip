@@ -1,6 +1,6 @@
 package com.example.battleship.patterns;
 
-// Command.java - Command interface
+//Command interface
 
 /**
  * Command interface for the Command pattern.

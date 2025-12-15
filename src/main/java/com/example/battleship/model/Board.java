@@ -1,12 +1,8 @@
 package com.example.battleship.model;
 
-// Board.java - Represents the game board
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.example.battleship.exceptions.InvalidPlacementException;
 
 /**
@@ -14,10 +10,6 @@ import com.example.battleship.exceptions.InvalidPlacementException;
  * Uses multiple data structures: 2D array, List, Map (fulfills requirement of 4+ data structures)
  * HU-1: Handles ship placement validation
  * HU-2: Tracks shot results
- */
-
-/**
- * Represents the game board.
  */
 public class Board implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -43,11 +35,17 @@ public class Board implements Serializable {
 
     /**
      * Place a ship on the board
+     * HU-1: Validates ship placement
      */
     public boolean placeShip(Ship ship, Position position, boolean isHorizontal) {
+        // Check if ship is already placed
+        if (ship.isPlaced()) {
+            return false;
+        }
+
         List<Position> positions = new ArrayList<>();
 
-        // Calculate all positions
+        //Calculate all positions
         for (int i = 0; i < ship.getSize(); i++) {
             int row = isHorizontal ? position.getRow() : position.getRow() + i;
             int col = isHorizontal ? position.getCol() + i : position.getCol();
@@ -57,7 +55,7 @@ public class Board implements Serializable {
                 return false;
             }
 
-            // Check if cell already has a ship
+            //Check if cell already has a ship
             if (grid[row][col].hasShip()) {
                 return false;
             }
@@ -65,7 +63,7 @@ public class Board implements Serializable {
             positions.add(new Position(row, col));
         }
 
-        // Place the ship
+        //Place the ship
         for (Position pos : positions) {
             grid[pos.getRow()][pos.getCol()].setHasShip(true);
             grid[pos.getRow()][pos.getCol()].setShip(ship);
@@ -79,6 +77,7 @@ public class Board implements Serializable {
 
     /**
      * Receive a shot at given position
+     * HU-2: Processes shots and returns results
      */
     public ShotResult receiveShot(Position position) {
         Cell cell = getCell(position);
@@ -107,7 +106,11 @@ public class Board implements Serializable {
     }
 
     public Cell getCell(Position position) {
-        return grid[position.getRow()][position.getCol()];
+        if (position.getRow() >= 0 && position.getRow() < height &&
+                position.getCol() >= 0 && position.getCol() < width) {
+            return grid[position.getRow()][position.getCol()];
+        }
+        throw new IllegalArgumentException("Position out of bounds: " + position);
     }
 
     public int getWidth() {
@@ -119,7 +122,7 @@ public class Board implements Serializable {
     }
 
     public List<Ship> getShips() {
-        return ships;
+        return new ArrayList<>(ships);
     }
 
     public boolean allShipsSunk() {
@@ -127,7 +130,30 @@ public class Board implements Serializable {
     }
 
     /**
-     * ShotResult enum - This is what's being used in BoardView.java
+     * Check if position is valid
+     */
+    public boolean isValidPosition(Position position) {
+        return position.getRow() >= 0 && position.getRow() < height &&
+                position.getCol() >= 0 && position.getCol() < width;
+    }
+
+    /**
+     * Clear all ships from board (for reset)
+     */
+    public void clear() {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                grid[row][col].setHasShip(false);
+                grid[row][col].setShip(null);
+                grid[row][col].setShot(false);
+                grid[row][col].setSunk(false);
+            }
+        }
+        ships.clear();
+    }
+
+    /**
+     * ShotResult enum - Represents possible shot outcomes
      */
     public enum ShotResult {
         HIT, MISS, SUNK, ALREADY_SHOT

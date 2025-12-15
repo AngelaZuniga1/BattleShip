@@ -1,6 +1,6 @@
 package com.example.battleship.exceptions;
 
-// GameException.java - Base custom exception
+//Base custom exception
 
 /**
  * Base custom exception for the Battleship game.

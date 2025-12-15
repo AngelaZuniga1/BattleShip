@@ -1,9 +1,6 @@
 package com.example.battleship.view;
 
-// ShipView.java - Visual representation of a ship
-
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
@@ -22,7 +19,6 @@ public class ShipView {
         this.ship = ship;
         this.selected = false;
         this.container = new HBox(5);
-
         initializeView();
     }
 
